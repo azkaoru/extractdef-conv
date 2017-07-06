@@ -4,6 +4,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"os"
+	"strings"
 )
 
 type Message struct {
@@ -16,6 +17,7 @@ type Message struct {
 type Keyworddef struct {
 	Name    string `xml:"NAME"`
 	Pattern string `xml:"PATTERN"`
+	Pos     string `xml:"pos,attr"`
 	Msg     Message
 }
 
@@ -24,6 +26,8 @@ type Patterndef struct {
 	Name     string       `xml:"NAME"`
 	Pattern  string       `xml:"PATTERN"`
 	Keywords []Keyworddef `xml:"KEYWORDDEF"`
+	Id       string       `xml:"patid,attr"`
+	Type     string       `xml:"type,attr"`
 	Msg      Message
 }
 
@@ -72,4 +76,41 @@ func main() {
 		fmt.Println("Error:", err)
 	}
 	fmt.Println("extractdef.xml ,PATTERNDEF size = ", len(xdef.Patterndefs))
+
+	var data []PrintData
+
+	for _, patterndef := range xdef.Patterndefs {
+		if len(patterndef.Keywords) == 0 {
+			printdata := PrintData{
+				patterndef.Id,
+				patterndef.Type,
+				patterndef.Msg.Id,
+				patterndef.Msg.Level,
+				patterndef.Name,
+				patterndef.Pattern,
+				strings.Trim(patterndef.Msg.Value, "\n "),
+				``,
+				``}
+			data = append(data, printdata)
+		} else {
+			for _, keyword := range patterndef.Keywords {
+				printdata := PrintData{
+					patterndef.Id,
+					patterndef.Type,
+					keyword.Msg.Id,
+					keyword.Msg.Level,
+					patterndef.Name,
+					patterndef.Pattern,
+					strings.Trim(keyword.Msg.Value, "\n "),
+					keyword.Pos + `:` + keyword.Pattern,
+					patterndef.Name + ` ` + keyword.Name}
+				data = append(data, printdata)
+			}
+		}
+	}
+
+	printer := &CsvPrinter{w: os.Stdout, headPrint: true}
+	printer.print(data)
+
+	fmt.Println("extractdef.xml ,check rule size = ", len(data))
 }
