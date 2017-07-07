@@ -4897,8 +4897,7 @@
   <PATTERNDEF patid="TYP-006-001" type="TYPE">
     <NAME>NUMBER</NAME>
     <PATTERN>NUMBER</PATTERN>
-    <MESSAGE id="TYP-006-001" level="LOW2">%pattern%型はサポートされていません。NUMERIC型に変更することで対応可能ですが、位取りの値に、負数および、精度より大きい値は指定できませんので注意が必要です。
-また、NUMERIC型は性能上問題となる場合がありますので、厳密に精度を求める必要がない場合はREAL型やINTEGER型など、他の型の利用を検討してください。
+    <MESSAGE id="TYP-006-001" level="LOW2">%pattern%型はサポートされていません。NUMERIC型に変更することで対応可能ですが、位取りの値に、負数および、精度より大きい値は指定できませんので注意が必要です。また、NUMERIC型は性能上問題となる場合がありますので、厳密に精度を求める必要がない場合はREAL型やINTEGER型など、他の型の利用を検討してください。
 </MESSAGE>
   </PATTERNDEF>
   <PATTERNDEF patid="TYP-008-001" type="TYPE">
@@ -6078,8 +6077,7 @@
 	<PATTERNDEF patid="FNC-136-001" type="FUNC">
 	<NAME>NANVL</NAME>
 	<PATTERN>NANVL\s*\(</PATTERN>
-	<MESSAGE id="FNC-136-001" level="ERROR LV1">%pattern%関数は未サポートです。
-	ただし、Orafceを導入することサポートされます。
+	<MESSAGE id="FNC-136-001" level="ERROR LV1">%pattern%関数は未サポートです。ただし、Orafceを導入することサポートされます。
 	</MESSAGE>
 	</PATTERNDEF>
 	<PATTERNDEF patid="FNC-137-001" type="FUNC">
@@ -6247,8 +6245,7 @@
 	<PATTERNDEF patid="FNC-171-001" type="FUNC">
 	<NAME>NULLIF</NAME>
 	<PATTERN>NULLIF\s*\(</PATTERN>
-	<MESSAGE id="FNC-171-001" level="ERROR LV1">%pattern%関数は未サポートです。
-	ただし、CASE式に置き換えることで同等の結果を得られます。
+	<MESSAGE id="FNC-171-001" level="ERROR LV1">%pattern%関数は未サポートです。ただし、CASE式に置き換えることで同等の結果を得られます。
 	</MESSAGE>
 	</PATTERNDEF>
 	<PATTERNDEF patid="FNC-172-001" type="FUNC">
@@ -6296,8 +6293,7 @@
 	<PATTERNDEF patid="FNC-179-001" type="FUNC">
 	<NAME>SYS_EXTRACT_UTC</NAME>
 	<PATTERN>SYS_EXTRACT_UTC\s*\(</PATTERN>
-	<MESSAGE id="FNC-179-001" level="ERROR LV1">%pattern%関数は未サポートです。
-	ただし、AT TIME ZONE構文に置き換えることで同等の結果を得られます。
+	<MESSAGE id="FNC-179-001" level="ERROR LV1">%pattern%関数は未サポートです。ただし、AT TIME ZONE構文に置き換えることで同等の結果を得られます。
 	</MESSAGE>
 	</PATTERNDEF>
 	<PATTERNDEF patid="FNC-180-001" type="FUNC">
@@ -6315,8 +6311,7 @@
 	<PATTERNDEF patid="FNC-182-001" type="FUNC">
 	<NAME>SYSTIMESTAMP</NAME>
 	<PATTERN>SYSTIMESTAMP</PATTERN>
-	<MESSAGE id="FNC-182-001" level="ERROR LV1">%pattern%関数は未サポートです。
-	ただし、clock_timestamp関数に置き換えることで同等の結果を得られます。
+	<MESSAGE id="FNC-182-001" level="ERROR LV1">%pattern%関数は未サポートです。ただし、clock_timestamp関数に置き換えることで同等の結果を得られます。
 	</MESSAGE>
 	</PATTERNDEF>
 	<PATTERNDEF patid="FNC-183-001" type="FUNC">
@@ -6484,8 +6479,7 @@
 	<PATTERNDEF patid="FNC-212-001" type="FUNC">
 	<NAME>DECODE</NAME>
 	<PATTERN>DECODE\s*\(</PATTERN>
-	<MESSAGE id="FNC-212-001" level="LOW1">%pattern%関数は未サポートです。
-	ただし、Orafceを導入することサポートされます。
+	<MESSAGE id="FNC-212-001" level="LOW1">%pattern%関数は未サポートです。ただし、Orafceを導入することサポートされます。
 	</MESSAGE>
 	<TARGETDBMS>
 	  <DBMS><PRODUCT>orafce</PRODUCT><VERSION>3.0.0</VERSION></DBMS>
