@@ -26,7 +26,7 @@ type CsvPrinter struct {
 
 //http://sambaiz.net/article/37/
 // Convert interface{} to []interface{}
-func toSlice(src interface{}) []interface{} {
+func (printer *CsvPrinter) toSlice(src interface{}) []interface{} {
 
 	ret := []interface{}{}
 	if v := reflect.ValueOf(src); v.Kind() == reflect.Slice {
@@ -44,7 +44,7 @@ func toSlice(src interface{}) []interface{} {
 
 // Generate csv rows including header from interface{} slice or object
 func (printer *CsvPrinter) getRows(src interface{}) [][]string {
-	s1 := toSlice(src)
+	s1 := printer.toSlice(src)
 	rows := make([][]string, 1)
 	for i, d := range s1 {
 
