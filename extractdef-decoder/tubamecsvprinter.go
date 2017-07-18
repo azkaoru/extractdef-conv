@@ -71,6 +71,67 @@ type TubameCsvPrinter struct {
 	tubamePrintDataList []TubamePrintData
 }
 
+//検索対象と、検索対象モジュールを返す
+func (printer *TubameCsvPrinter) getSearchTargetAndSearchModule(param1 string) (string, string) {
+	var searchTarget, searchModule string
+	switch param1 {
+	case "EMBSQL", "FUNC", "SQL", "Type":
+		searchTarget = "*.sql"
+		searchModule = "ext_search_sql_parser.py"
+	case "ORACA", "SQLCA", "SQLDA":
+		searchTarget = "*.vc"
+		searchModule = ""
+	}
+	return searchTarget, searchModule
+}
+
+//調査内容を返す
+func (printer *TubameCsvPrinter) getInvestigation(param1 string, param2 string) string {
+	//get $1 from $1 :GLOBAL
+	replaceTarget := strings.TrimSpace(strings.Split(param2, ":")[0])
+
+	newval := strings.Replace(param1, replaceTarget, param2, -1)
+	return newval
+
+}
+
+func (printer *TubameCsvPrinter) getSearchKey1(param1 string, param2 string) string {
+	//get ($1) from $1 :GLOBAL
+	replaceTarget := "(" + strings.TrimSpace(strings.Split(param2, ":")[0]) + ")"
+
+	// get Global from $1 :GLOBAL
+	replaceValue := strings.TrimSpace(strings.Split(param2, ":")[1])
+
+	newval := strings.Replace(param1, replaceTarget, replaceValue, -1)
+	return newval
+}
+
+func (printer *TubameCsvPrinter) getPortabilityDegree(level string) (string, string) {
+	var val string
+	var val2 string
+	switch level {
+	case "CHECK_LOW2", "LOW1", "LOW2":
+		val = "Low"
+		if level == "LOW1" {
+			val2 = "低1"
+		} else if level == "LOW2" || level == "CHECK_LOW2" {
+			val2 = "低2"
+		}
+	case "CHECK_MIDDLE", "MIDDLE":
+		val = "Middle"
+		val2 = "中"
+	case "High":
+		val = "High"
+		val2 = "高"
+	case "ERROR LV1", "ERROR LV2", "ERROR LV3", "ERROR LV4", "ERROR LV5":
+		val = "Unknown"
+		val2 = "不明1"
+	case "WARNING":
+		val = "Unknown"
+		val2 = "不明2"
+	}
+	return val, val2
+}
 func (printer *TubameCsvPrinter) createKnowledge(data interface{}, cate string) string {
 	printdata := data.(PrintData)
 	if cateName, ok := printer.knowledgeMap[printdata.Pid]; ok {
@@ -97,6 +158,10 @@ func (printer *TubameCsvPrinter) createKnowledge(data interface{}, cate string) 
 
 func (printer *TubameCsvPrinter) createKnowledgeAndCheckItem(data interface{}, cate string) {
 	printdata := data.(PrintData)
+
+	if printdata.Level == "FATAL" {
+		return
+	}
 	t := TubamePrintData{}
 	t.No = strconv.Itoa(printer.counter)
 	printer.counter++
@@ -124,24 +189,31 @@ func (printer *TubameCsvPrinter) createKnowledgeAndCheckItem(data interface{}, c
 	t.CheckItemIsSearch = "True"
 	//移植要因
 	t.CheckItemPortingFactor = "Java バージョンアップによる変更"
+
+	level, levelDesc := printer.getPortabilityDegree(printdata.Level)
 	//難易度
-	t.ChekcItemPortingLevel = printdata.Level
+	t.ChekcItemPortingLevel = level
 	//難易度詳細
-	t.CheckItemDifficultyDetail = "TODO:"
+	t.CheckItemDifficultyDetail = levelDesc
 	//目視確認
 	t.ChekcItemManualCheckFlg = "check"
 	//ヒアリング確認
 	t.ChekcItemHearingCheckFlg = ""
 
+	searchTarget, searchModule := printer.getSearchTargetAndSearchModule(printdata.Ptype)
 	//検索条件
-	t.SearchTarget = "TODO:"
-	t.SearchKey1 = printdata.Ppattern
+	t.SearchTarget = searchTarget
+
 	if printdata.Pid == printdata.Msgid {
+		t.SearchKey1 = printdata.Ppattern
 		t.SearchKey2 = ""
+		t.Survey = printdata.Ppattern
 	} else {
-		t.SearchKey2 = printdata.Kpattern
+		t.SearchKey1 = printer.getSearchKey1(printdata.Ppattern, printdata.Kpattern)
+		t.SearchKey2 = ""
+		t.Survey = printer.getInvestigation(printdata.Ppattern, printdata.Kpattern)
 	}
-	t.SearchModule = "TODO:"
+	t.SearchModule = searchModule
 
 	//ライン数算出
 	t.CalcEnable = "TRUE"
@@ -154,7 +226,7 @@ func (printer *TubameCsvPrinter) createKnowledgeAndCheckItem(data interface{}, c
 	//ライン数根拠
 	t.CalcStepBasis = ""
 	//調査内容
-	t.Survey = ""
+	//t.Survey = ""
 
 	printer.tubamePrintDataList = append(printer.tubamePrintDataList, t)
 
