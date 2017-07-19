@@ -7,6 +7,10 @@ import (
 	"strings"
 )
 
+type Printer interface {
+	Print(data interface{})
+}
+
 type PrintData struct {
 	Ptype    string
 	Pid      string
@@ -67,7 +71,7 @@ func (printer *CsvPrinter) getRows(src interface{}) [][]string {
 	return rows
 }
 
-func (printer *CsvPrinter) print(data interface{}) {
+func (printer *CsvPrinter) Print(data interface{}) {
 	rows := printer.getRows(data)
 	for _, row := range rows {
 		csvRecord := strings.Join(row, ",")

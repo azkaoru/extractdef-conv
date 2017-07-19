@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/xml"
+	"flag"
 	"fmt"
 	"os"
 	"strings"
@@ -90,7 +91,31 @@ func typeGrouping(printdataList []PrintData) map[string][]PrintData {
 	return printDataMap
 }
 
+func newPrinter(printType string) Printer {
+	var printer Printer
+	switch printType {
+	case DEFAULT_CSV:
+		printer = &CsvPrinter{w: os.Stdout, headPrint: false}
+	case TUBAME_CSV:
+		printer = &TubameCsvPrinter{
+			w:                   os.Stdout,
+			knowledgeMap:        make(map[string]string),
+			counter:             1,
+			checkItemCounter:    1,
+			tubamePrintDataList: []TubamePrintData{},
+		}
+	}
+	return printer
+}
+
+const DEFAULT_CSV = "csv"
+const TUBAME_CSV = "tubame"
+
 func main() {
+
+	var printType string
+	flag.StringVar(&printType, "print", DEFAULT_CSV, "if you want to convert for tubame knowledge converter,use tubame")
+	flag.Parse()
 	xdef, err := decode("extractdef.xml")
 	if err != nil {
 		fmt.Println("Error:", err)
@@ -130,9 +155,9 @@ func main() {
 	}
 
 	printDataMap := typeGrouping(data)
-	printer := &CsvPrinter{w: os.Stdout, headPrint: false}
+	csvPrinter := newPrinter(printType)
 	for _, printdataList := range printDataMap {
-		printer.print(printdataList)
+		csvPrinter.Print(printdataList)
 	}
 
 }

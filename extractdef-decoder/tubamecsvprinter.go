@@ -233,7 +233,7 @@ func (printer *TubameCsvPrinter) createKnowledgeAndCheckItem(data interface{}, c
 }
 
 //map
-func (printer *TubameCsvPrinter) print(data interface{}) {
+func (printer *TubameCsvPrinter) Print(data interface{}) {
 	slice := printer.CsvPrinter.toSlice(data)
 	for i, row := range slice {
 		if i == 0 {
@@ -249,6 +249,6 @@ func (printer *TubameCsvPrinter) print(data interface{}) {
 			}
 		}
 	}
-	printer.CsvPrinter.print(printer.tubamePrintDataList)
+	printer.CsvPrinter.Print(printer.tubamePrintDataList)
 
 }

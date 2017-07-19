@@ -20,6 +20,6 @@ func TestTubameCsvPrinter(t *testing.T) {
 		checkItemCounter:    1,
 		tubamePrintDataList: []TubamePrintData{}}
 
-	printer.print(data)
+	printer.Print(data)
 
 }
