@@ -695,11 +695,12 @@
     <NAME>TO_CHAR</NAME>
     <PATTERN>TO_CHAR\s*\(</PATTERN>
     <PLUGIN library="plugin.pm" procedure="checkToFunction"/>
+    <MESSAGE id="FNC-088-001" level="CHECK_LOW2">TODO</MESSAGE>
   </PATTERNDEF>
   <PATTERNDEF patid="FNC-089-001" type="FUNC">
     <NAME>TO_DATE</NAME>
     <PATTERN>TO_DATE\s*\(</PATTERN>
-    <PLUGIN library="plugin.pm" procedure="checkToFunction"/>
+    <MESSAGE id="FNC-089-001" level="CHECK_LOW2">TODO</MESSAGE>
   </PATTERNDEF>
   <PATTERNDEF patid="FNC-090-001" type="FUNC">
     <NAME>TO_LOB</NAME>
@@ -715,6 +716,7 @@
     <NAME>TO_NUMBER</NAME>
     <PATTERN>TO_NUMBER\s*\(</PATTERN>
     <PLUGIN library="plugin.pm" procedure="checkToFunction"/>
+    <MESSAGE id="FNC-092-001" level="CHECK_LOW2">%pattern%関数は未サポートです。</MESSAGE>
   </PATTERNDEF>
   <PATTERNDEF patid="FNC-093-001" type="FUNC">
     <NAME>TO_SINGLE_BYTE</NAME>
@@ -1790,17 +1792,17 @@
     <KEYWORDDEF pos="$1 ">
       <NAME>create_table_statement</NAME>
       <PATTERN>SQL-105</PATTERN>
-      <MESSAGE id="SQL-103-001" level="-"></MESSAGE>
+      <MESSAGE id="SQL-103-001" level="WARNING"></MESSAGE>
     </KEYWORDDEF>
     <KEYWORDDEF pos="$1 ">
       <NAME>create_view_statement</NAME>
       <PATTERN>SQL-106</PATTERN>
-      <MESSAGE id="SQL-103-002" level="-"></MESSAGE>
+      <MESSAGE id="SQL-103-002" level="WARNING"></MESSAGE>
     </KEYWORDDEF>
     <KEYWORDDEF pos="$1 ">
       <NAME>grant_statement</NAME>
       <PATTERN>SQL-113</PATTERN>
-      <MESSAGE id="SQL-103-003" level="-"></MESSAGE>
+      <MESSAGE id="SQL-103-003" level="WARNING"></MESSAGE>
     </KEYWORDDEF>
   </PATTERNDEF>
   <PATTERNDEF patid="SQL-104" type="SQL">
@@ -2040,9 +2042,9 @@
       <MESSAGE id="SQL-106-002" level="ERROR LV2">%keyword%句は未サポートです。</MESSAGE>
     </KEYWORDDEF>
     <KEYWORDDEF pos="$3 ">
-      <NAME>-</NAME>
+      <NAME>SQL-118-NAME</NAME>
       <PATTERN>SQL-118</PATTERN>
-      <MESSAGE id="SQL-106-004" level="-"></MESSAGE>
+      <MESSAGE id="SQL-106-004" level="WARNING"></MESSAGE>
     </KEYWORDDEF>
     <KEYWORDDEF pos="$3 ">
       <NAME>WITH</NAME>
@@ -4257,26 +4259,31 @@
       <NAME>ALL_*</NAME>
       <PATTERN>(?:SYS\s*\.\s*)?ALL_[\d\w_]+</PATTERN>
       <PLUGIN library="plugin_view.pm" procedure="checkOracleView"/>
+      <MESSAGE id="SQL-118-027" level="WARNING">TODO</MESSAGE>
     </KEYWORDDEF>
     <KEYWORDDEF pos="$0">
       <NAME>DBA_*</NAME>
       <PATTERN>(?:SYS\s*\.\s*)?DBA_[\d\w_]+</PATTERN>
       <PLUGIN library="plugin_view.pm" procedure="checkOracleView"/>
+      <MESSAGE id="SQL-118-028" level="WARNING">TODO</MESSAGE>
     </KEYWORDDEF>
     <KEYWORDDEF pos="$0">
       <NAME>USER_*</NAME>
       <PATTERN>(?:SYS\s*\.\s*)?USER_[\d\w_]+</PATTERN>
       <PLUGIN library="plugin_view.pm" procedure="checkOracleView"/>
+      <MESSAGE id="SQL-118-029" level="WARNING">TODO</MESSAGE>
     </KEYWORDDEF>
     <KEYWORDDEF pos="$0">
       <NAME>GV$*</NAME>
       <PATTERN>(?:SYS\s*\.\s*)?GV[$][\d\w_]+</PATTERN>
       <PLUGIN library="plugin_view.pm" procedure="checkOracleView"/>
+      <MESSAGE id="SQL-118-030" level="WARNING">TODO</MESSAGE>
     </KEYWORDDEF>
     <KEYWORDDEF pos="$0">
       <NAME>V$*</NAME>
       <PATTERN>(?:SYS\s*\.\s*)?V[$][\d\w_]+</PATTERN>
       <PLUGIN library="plugin_view.pm" procedure="checkOracleView"/>
+      <MESSAGE id="SQL-118-031" level="WARNING">TODO</MESSAGE>
     </KEYWORDDEF>
     <KEYWORDDEF pos="$0">
       <NAME>AUDIT_ACTIONS</NAME>
