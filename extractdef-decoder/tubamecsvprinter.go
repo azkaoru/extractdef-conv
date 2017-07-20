@@ -188,7 +188,7 @@ func (printer *TubameCsvPrinter) createKnowledgeAndCheckItem(data interface{}, c
 	//検索実施
 	t.CheckItemIsSearch = "True"
 	//移植要因
-	t.CheckItemPortingFactor = "Java バージョンアップによる変更"
+	t.CheckItemPortingFactor = "DBMS の変更"
 
 	level, levelDesc := printer.getPortabilityDegree(printdata.Level)
 	//難易度
@@ -208,10 +208,12 @@ func (printer *TubameCsvPrinter) createKnowledgeAndCheckItem(data interface{}, c
 		t.SearchKey1 = printdata.Ppattern
 		t.SearchKey2 = ""
 		t.Survey = printdata.Ppattern
+		t.CheckItemSeachProcedure = printdata.Ppattern
 	} else {
 		t.SearchKey1 = printer.getSearchKey1(printdata.Ppattern, printdata.Kpattern)
 		t.SearchKey2 = ""
 		t.Survey = printer.getInvestigation(printdata.Ppattern, printdata.Kpattern)
+		t.CheckItemSeachProcedure = t.Survey
 	}
 	t.SearchModule = searchModule
 
