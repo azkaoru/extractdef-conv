@@ -92,7 +92,6 @@ func (printer *TubameCsvPrinter) getInvestigation(param1 string, param2 string) 
 
 	newval := strings.Replace(param1, replaceTarget, param2, -1)
 	return newval
-
 }
 
 func (printer *TubameCsvPrinter) getSearchKey1(param1 string, param2 string) string {
@@ -139,10 +138,16 @@ func (printer *TubameCsvPrinter) createKnowledge(data interface{}, cate string) 
 	} else {
 		t := TubamePrintData{}
 		t.No = strconv.Itoa(printer.counter)
+
+		if len(printer.tubamePrintDataList) == 0 {
+			t.CategoryName = printdata.Ptype + " MIGRATION"
+		} else {
+			t.CategoryName = printdata.Pname
+		}
 		printer.counter++
 		t.ChapterName = ""
-		t.CategoryName = printdata.Pname
-		t.KnowledgeTitle = "knowledge" + t.No
+
+		t.KnowledgeTitle = "knowledge-" + t.No
 		t.KnowledgeContent = "<ns3:para>" + t.ChapterName + "</ns3:para>"
 		if cate != "" {
 			t.ParentCategoryName = cate
@@ -167,7 +172,7 @@ func (printer *TubameCsvPrinter) createKnowledgeAndCheckItem(data interface{}, c
 	printer.counter++
 	t.ChapterName = ""
 	t.CategoryName = printdata.Pname + " (" + printdata.Msgid + ")"
-	t.KnowledgeTitle = "knowledge" + t.No
+	t.KnowledgeTitle = "knowledge-" + t.No
 
 	if printdata.Pid == printdata.Msgid {
 		t.KnowledgeContent = "<ns3:para>" + printdata.Ppattern + " " + strings.Replace(printdata.Msg, "%", "", -1) + "</ns3:para>"
@@ -181,7 +186,7 @@ func (printer *TubameCsvPrinter) createKnowledgeAndCheckItem(data interface{}, c
 	t.ParentCategoryName = cate
 
 	//チェックアイテム名
-	t.CheckItemName = "item" + strconv.Itoa(printer.checkItemCounter)
+	t.CheckItemName = "item-" + strconv.Itoa(printer.checkItemCounter)
 	printer.checkItemCounter++
 	//検索手順
 	t.CheckItemSeachProcedure = "TODO:"
@@ -236,6 +241,7 @@ func (printer *TubameCsvPrinter) createKnowledgeAndCheckItem(data interface{}, c
 
 //map
 func (printer *TubameCsvPrinter) Print(data interface{}) {
+	printer.tubamePrintDataList = []TubamePrintData{}
 	slice := printer.CsvPrinter.toSlice(data)
 	for i, row := range slice {
 		if i == 0 {
@@ -251,6 +257,7 @@ func (printer *TubameCsvPrinter) Print(data interface{}) {
 			}
 		}
 	}
+
 	printer.CsvPrinter.Print(printer.tubamePrintDataList)
 
 }

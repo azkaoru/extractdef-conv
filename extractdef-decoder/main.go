@@ -98,11 +98,10 @@ func newPrinter(printType string) Printer {
 		printer = &CsvPrinter{w: os.Stdout, headPrint: false}
 	case TUBAME_CSV:
 		printer = &TubameCsvPrinter{
-			w:                   os.Stdout,
-			knowledgeMap:        make(map[string]string),
-			counter:             1,
-			checkItemCounter:    1,
-			tubamePrintDataList: []TubamePrintData{},
+			w:                os.Stdout,
+			knowledgeMap:     make(map[string]string),
+			counter:          1,
+			checkItemCounter: 1,
 		}
 	}
 	return printer

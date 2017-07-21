@@ -39,7 +39,6 @@ func (printer *CsvPrinter) toSlice(src interface{}) []interface{} {
 		}
 
 	} else {
-
 		ret = append(ret, v.Interface())
 	}
 

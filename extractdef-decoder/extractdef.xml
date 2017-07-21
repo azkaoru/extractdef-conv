@@ -1656,7 +1656,7 @@
     </KEYWORDDEF>
     <KEYWORDDEF pos="$2 ">
       <NAME>schema.index</NAME>
-      <PATTERN>[^.(), ]+\s*\.\s*[^.(), ]+</PATTERN>
+      <PATTERN>[^.()Comma ]+\s*\.\s*[^.()Comma ]+</PATTERN>
       <MESSAGE id="SQL-102-002" level="LOW2">インデックス名にスキーマ名は指定できません。</MESSAGE>
     </KEYWORDDEF>
     <KEYWORDDEF pos="$3 ">
@@ -1666,7 +1666,7 @@
     </KEYWORDDEF>
     <KEYWORDDEF pos="$3 " filter="Oracle8i">
       <NAME>t_alias</NAME>
-      <PATTERN>ON (?:[^.(), ]+\.)?[^.(), ]+\s+[^.(), ]+\s*\(.*</PATTERN>
+      <PATTERN>ON (?:[^.()Comma ]+\.)?[^.()Comma ]+\s+[^.()Comma ]+\s*\(.*</PATTERN>
       <MESSAGE id="SQL-102-004" level="ERROR LV2">テーブル名に対する別名は指定できません。</MESSAGE>
     </KEYWORDDEF>
     <KEYWORDDEF pos="$3 ">
@@ -1841,7 +1841,7 @@
   </PATTERNDEF>
   <PATTERNDEF patid="SQL-105" type="SQL">
     <NAME>CREATE(?: GLOBAL TEMPORARY)? TABLE</NAME>
-    <PATTERN>CREATE(?: GLOBAL TEMPORARY)? TABLE (?:[^.(), ]+\.)?[^.(), ]+\b($1)</PATTERN>
+    <PATTERN>CREATE(?: GLOBAL TEMPORARY)? TABLE (?:[^.()Comma ]+\.)?[^.()Comma ]+\b($1)</PATTERN>
     <KEYWORDDEF pos="$1 " filter="Oracle8i">
       <NAME>INITIALLY IMMEDIATE [NOT] DEFERRABLE</NAME>
       <PATTERN>INITIALLY IMMEDIATE (?:NOT\s+)?DEFERRABLE</PATTERN>
@@ -2218,7 +2218,7 @@
     </KEYWORDDEF>
     <KEYWORDDEF pos="$1 ">
       <NAME>列指定</NAME>
-      <PATTERN>\(\s*[^.(), ]+</PATTERN>
+      <PATTERN>\(\s*[^.()Comma ]+</PATTERN>
       <MESSAGE id="SQL-113-003" level="ERROR LV2">個々の列に対する権限設定は未サポートです。</MESSAGE>
 	  <TARGETDBMS>
 		<DBMS><PRODUCT>PostgreSQL</PRODUCT><VERSION>8.4</VERSION></DBMS>
@@ -3120,12 +3120,12 @@
     </KEYWORDDEF>
     <KEYWORDDEF pos="$1 ">
       <NAME>CURRVAL</NAME>
-      <PATTERN>(\s*[^.(),\s]+\s*.)?\s*[^.(),\s]+\s*.\s*CURRVAL(?:@[\w_]*)?</PATTERN>
+      <PATTERN>(\s*[^.()Comma\s]+\s*.)?\s*[^.()Comma\s]+\s*.\s*CURRVAL(?:@[\w_]*)?</PATTERN>
       <MESSAGE id="SQL-114-009" level="LOW1">%keyword%擬似列は未サポートです。</MESSAGE>
     </KEYWORDDEF>
     <KEYWORDDEF pos="$1 ">
       <NAME>NEXTVAL</NAME>
-      <PATTERN>(\s*[^.(),\s]+\s*.)?\s*[^.(),\s]+\s*.\s*NEXTVAL(?:@[\w_]*)?</PATTERN>
+      <PATTERN>(\s*[^.()Comma\s]+\s*.)?\s*[^.()Comma\s]+\s*.\s*NEXTVAL(?:@[\w_]*)?</PATTERN>
       <MESSAGE id="SQL-114-010" level="LOW1">%keyword%擬似列は未サポートです。</MESSAGE>
     </KEYWORDDEF>
   </PATTERNDEF>
@@ -3163,7 +3163,7 @@
     </KEYWORDDEF>
     <KEYWORDDEF pos="$1 ">
       <NAME>列指定</NAME>
-      <PATTERN>\(\s*[^.(), ]+</PATTERN>
+      <PATTERN>\(\s*[^.()Comma ]+</PATTERN>
       <MESSAGE id="SQL-116-003" level="ERROR LV2">個々の列に対する権限設定は未サポートです。</MESSAGE>
 	  <TARGETDBMS>
 		<DBMS><PRODUCT>PostgreSQL</PRODUCT><VERSION>8.4</VERSION></DBMS>
@@ -4074,7 +4074,7 @@
     </KEYWORDDEF>
     <KEYWORDDEF pos="$2 ">
       <NAME>列リスト</NAME>
-      <PATTERN>\(\s*[^.(),\s]+\s*,\s*[^.(),\s]+.*\)\s*=</PATTERN>
+      <PATTERN>\(\s*[^.()Comma\s]+\s*Comma\s*[^.()Comma\s]+.*\)\s*=</PATTERN>
       <MESSAGE id="SQL-122-006" level="MIDDLE">%todb%8.1で副問い合わせを利用した複数列の更新は未サポートです。</MESSAGE>
     <TARGETDBMS>
       <DBMS><PRODUCT>PostgreSQL</PRODUCT><VERSION>8.2</VERSION></DBMS>
@@ -4107,12 +4107,12 @@
     </KEYWORDDEF>
     <KEYWORDDEF pos="$2 ">
       <NAME>CURRVAL</NAME>
-      <PATTERN>(\s*[^.(),\s]+\s*.)?\s*[^.(),\s]+\s*.\s*CURRVAL(?:@[\w_]*)?</PATTERN>
+      <PATTERN>(\s*[^.()Comma\s]+\s*.)?\s*[^.()Comma\s]+\s*.\s*CURRVAL(?:@[\w_]*)?</PATTERN>
       <MESSAGE id="SQL-122-012" level="LOW1">%keyword%擬似列は未サポートです。</MESSAGE>
     </KEYWORDDEF>
     <KEYWORDDEF pos="$2 ">
       <NAME>NEXTVAL</NAME>
-      <PATTERN>(\s*[^.(),\s]+\s*.)?\s*[^.(),\s]+\s*.\s*NEXTVAL(?:@[\w_]*)?</PATTERN>
+      <PATTERN>(\s*[^.()Comma\s]+\s*.)?\s*[^.()Comma\s]+\s*.\s*NEXTVAL(?:@[\w_]*)?</PATTERN>
       <MESSAGE id="SQL-122-013" level="LOW1">%keyword%擬似列は未サポートです。</MESSAGE>
     </KEYWORDDEF>
   </PATTERNDEF>
@@ -4126,7 +4126,7 @@
     </KEYWORDDEF>
     <KEYWORDDEF pos="$1 ">
       <NAME>全列指定</NAME>
-      <PATTERN>([^.(), ]+\.\*)</PATTERN>
+      <PATTERN>([^.()Comma ]+\.\*)</PATTERN>
       <MESSAGE id="SQL-118-002" level="ERROR LV1">全列指定は未サポートです。SELECT句にすべてのカラム名を指定してください。</MESSAGE>
     </KEYWORDDEF>
     <KEYWORDDEF pos="$2">
@@ -4166,12 +4166,12 @@
     </KEYWORDDEF>
     <KEYWORDDEF pos="$2 ">
       <NAME>outer join</NAME>
-      <PATTERN>[^.(), ]+\s*\.\s*[^.(), ]+\s*\(\s*\+\s*\)\s*=\s*[^.(), ]+\s*\.\s*[^.(), ]+</PATTERN>
+      <PATTERN>[^.()Comma ]+\s*\.\s*[^.()Comma ]+\s*\(\s*\+\s*\)\s*=\s*[^.()Comma ]+\s*\.\s*[^.()Comma ]+</PATTERN>
       <MESSAGE id="SQL-118-009" level="ERROR LV1">外部結合演算子(+)による外部結合は未サポートです。LEFT JOIN構文に修正してください。</MESSAGE>
     </KEYWORDDEF>
     <KEYWORDDEF pos="$2 ">
       <NAME>outer join</NAME>
-      <PATTERN>[^.(), ]+\s*\.\s*[^.(), ]+\s*=\s*[^.(), ]+\s*\.\s*[^.(), ]+\s*\(\s*\+\s*\)</PATTERN>
+      <PATTERN>[^.()Comma ]+\s*\.\s*[^.()Comma ]+\s*=\s*[^.()Comma ]+\s*\.\s*[^.()Comma ]+\s*\(\s*\+\s*\)</PATTERN>
       <MESSAGE id="SQL-118-010" level="LOW2">外部結合演算子(+)による外部結合は未サポートです。RIGHT JOIN構文に修正してください。</MESSAGE>
     </KEYWORDDEF>
     <KEYWORDDEF pos="$2 ">
@@ -4237,12 +4237,12 @@
     </KEYWORDDEF>
     <KEYWORDDEF pos="$1 ">
       <NAME>CURRVAL</NAME>
-      <PATTERN>(\s*[^.(),\s]+\s*.)?\s*[^.(),\s]+\s*.\s*CURRVAL(?:@[\w_]*)?</PATTERN>
+      <PATTERN>(\s*[^.()Comma\s]+\s*.)?\s*[^.()Comma\s]+\s*.\s*CURRVAL(?:@[\w_]*)?</PATTERN>
       <MESSAGE id="SQL-118-023" level="LOW1">%keyword%擬似列は未サポートです。</MESSAGE>
     </KEYWORDDEF>
     <KEYWORDDEF pos="$1 ">
       <NAME>NEXTVAL</NAME>
-      <PATTERN>(\s*[^.(),\s]+\s*.)?\s*[^.(),\s]+\s*.\s*NEXTVAL(?:@[\w_]*)?</PATTERN>
+      <PATTERN>(\s*[^.()Comma\s]+\s*.)?\s*[^.()Comma\s]+\s*.\s*NEXTVAL(?:@[\w_]*)?</PATTERN>
       <MESSAGE id="SQL-118-024" level="LOW1">%keyword%擬似列は未サポートです。</MESSAGE>
     </KEYWORDDEF>
     <KEYWORDDEF pos="$2 ">
@@ -5844,7 +5844,7 @@
     </KEYWORDDEF>
     <KEYWORDDEF pos="$3 ">
       <NAME>列リスト</NAME>
-      <PATTERN>\(\s*[^.(),\s]+\s*,\s*[^.(),\s]+.*\)\s*=</PATTERN>
+      <PATTERN>\(\s*[^.()Comma\s]+\s*Comma\s*[^.()Comma\s]+.*\)\s*=</PATTERN>
       <MESSAGE id="EMB-071-005" level="ERROR LV2">副問い合わせを利用した複数列の更新は未サポートです。</MESSAGE>
     </KEYWORDDEF>
     <KEYWORDDEF pos="$3 " filter="Oracle8i">
@@ -6887,13 +6887,13 @@
 </PATTERNDEF>
 <PATTERNDEF patid="FNC-222-001" type="FUNC">
 <NAME>REGEXP_REPLACE</NAME>
-<PATTERN>REGEXP_REPLACE\s*\(\s*(?:[\w\d_]+|\"[\w\d_]*\"|'[^']*')\s*,\s*(?:[\w\d_]+|\"[\w\d_]*\"|'[^']*')\s*\)</PATTERN>
+<PATTERN>REGEXP_REPLACE\s*\(\s*(?:[\w\d_]+|\"[\w\d_]*\"|'[^']*')\s*Comma\s*(?:[\w\d_]+|\"[\w\d_]*\"|'[^']*')\s*\)</PATTERN>
 <MESSAGE id="FNC-222-001" level="ERROR LV4">%pattern%関数のreplace_string句の省略は未サポートです。
 </MESSAGE>
 </PATTERNDEF>
 <PATTERNDEF patid="FNC-222-002" type="FUNC">
 <NAME>REGEXP_REPLACE</NAME>
-<PATTERN>REGEXP_REPLACE\s*\(\s*(?:[\w\d_]+|\"[\w\d_]*\"|'[^']*')\s*,\s*(?:[\w\d_]+|\"[\w\d_]*\"|'[^']*')\s*,\s*(?:[\w\d_]+|\"[\w\d_]*\"|'[^']*')\s*,\s*[\w\d]*</PATTERN>
+<PATTERN>REGEXP_REPLACE\s*\(\s*(?:[\w\d_]+|\"[\w\d_]*\"|'[^']*')\s*Comma\s*(?:[\w\d_]+|\"[\w\d_]*\"|'[^']*')\s*Comma\s*(?:[\w\d_]+|\"[\w\d_]*\"|'[^']*')\s*Comma\s*[\w\d]*</PATTERN>
 <MESSAGE id="FNC-222-002" level="ERROR LV4">%pattern%関数の引数4以上は構文が異なります。
 </MESSAGE>
 </PATTERNDEF>
@@ -6923,19 +6923,19 @@
 </PATTERNDEF>
 <PATTERNDEF patid="FNC-226-001" type="FUNC">
 <NAME>TO_TIMESTAMP</NAME>
-<PATTERN>TO_TIMESTAMP\s*\([^,]+\)</PATTERN>
+<PATTERN>TO_TIMESTAMP\s*\([^Comma]+\)</PATTERN>
 <MESSAGE id="FNC-226-001" level="ERROR LV4">%todb%に該当する関数がありますが、引数の数が1個には対応していません。
 </MESSAGE>
 </PATTERNDEF>
 <PATTERNDEF patid="FNC-226-002" type="FUNC">
 <NAME>TO_TIMESTAMP</NAME>
-<PATTERN>TO_TIMESTAMP\s*\([^,]+,[^,]+\)</PATTERN>
+<PATTERN>TO_TIMESTAMP\s*\([^Comma]+Comma[^Comma]+\)</PATTERN>
 <MESSAGE id="FNC-226-002" level="WARNING">引数の出力テンプレート文字列が対応しているか確認する必要があります。
 </MESSAGE>
 </PATTERNDEF>
 <PATTERNDEF patid="FNC-226-003" type="FUNC">
 <NAME>TO_TIMESTAMP</NAME>
-<PATTERN>TO_TIMESTAMP\s*\([^,]+,[^,]+,[^,]+\)</PATTERN>
+<PATTERN>TO_TIMESTAMP\s*\([^Comma]+Comma[^Comma]+Comma[^Comma]+\)</PATTERN>
 <MESSAGE id="FNC-226-003" level="ERROR LV4">%todb%に該当する関数がありますが、引数の数が3個には対応していません。
 </MESSAGE>
 </PATTERNDEF>
