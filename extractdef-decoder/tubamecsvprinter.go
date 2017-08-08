@@ -75,11 +75,14 @@ type TubameCsvPrinter struct {
 func (printer *TubameCsvPrinter) getSearchTargetAndSearchModule(param1 string) (string, string) {
 	var searchTarget, searchModule string
 	switch param1 {
-	case "EMBSQL", "FUNC", "SQL", "Type":
-		searchTarget = "*.sql"
+	case "EMBSQL":
+		searchTarget = "*.p?c|*.cpp|*.h"
+		searchModule = "ext_search_sql_parser.py"
+	case "FUNC", "SQL", "TYPE":
+		searchTarget = "*.sql|*.java|*.ddl|*.p?c|*.cpp|*.h"
 		searchModule = "ext_search_sql_parser.py"
 	case "ORACA", "SQLCA", "SQLDA":
-		searchTarget = "*.vc"
+		searchTarget = "*.p?c|*.h|*.cpp"
 		searchModule = ""
 	}
 	return searchTarget, searchModule
@@ -161,6 +164,26 @@ func (printer *TubameCsvPrinter) createKnowledge(data interface{}, cate string) 
 	}
 }
 
+func (printer *TubameCsvPrinter) createCheckItemForXml(printData TubamePrintData) TubamePrintData {
+	printData.CheckItemName = "item-" + strconv.Itoa(printer.checkItemCounter)
+	printData.SearchTarget = "*.xml"
+	printData.SearchKey1 = `"//*[contains(translate(text(), 'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ'),'KEY1') and contains(translate(text(), 'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ'),'KEY2')]"`
+	printData.KnowledgeContent = ""
+	printData.SearchModule = "ext_search_xml_parser.py"
+	printer.checkItemCounter++
+	return printData
+}
+
+func (printer *TubameCsvPrinter) createCheckItemForProperties(printData TubamePrintData) TubamePrintData {
+	//チェックアイテム名
+	printData.CheckItemName = "item-" + strconv.Itoa(printer.checkItemCounter)
+	printData.SearchTarget = "*.properties"
+	printData.SearchModule = ""
+	printData.KnowledgeContent = ""
+	printer.checkItemCounter++
+	return printData
+}
+
 func (printer *TubameCsvPrinter) createKnowledgeAndCheckItem(data interface{}, cate string) {
 	printdata := data.(PrintData)
 
@@ -236,6 +259,14 @@ func (printer *TubameCsvPrinter) createKnowledgeAndCheckItem(data interface{}, c
 	//t.Survey = ""
 
 	printer.tubamePrintDataList = append(printer.tubamePrintDataList, t)
+
+	switch printdata.Ptype {
+
+	case "FUNC", "SQL", "TYPE":
+		//add check item for xml , properties
+		printer.tubamePrintDataList = append(printer.tubamePrintDataList, printer.createCheckItemForXml(t))
+		printer.tubamePrintDataList = append(printer.tubamePrintDataList, printer.createCheckItemForProperties(t))
+	}
 
 }
 
