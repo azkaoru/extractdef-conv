@@ -1,37 +1,35 @@
 # extractdef-conv
 
-extractdef-convは、下記のファイルをconvertする。
+extractdef-convは、db-syntax-diffにあるextractdef.xmlをTUBAME(https://github.com/TUBAME/migration-tool)ナレッジ用のXMLにconvertするプロジェクトです。
 
-https://github.com/db-syntax-diff/db_syntax_diff/blob/master/config/extractdef.xml
+ * db-syntax-diff
+  https://github.com/db-syntax-diff/db_syntax_diff/blob/master/config/extractdef.xml
 
+extractdef-conv内に同梱しているextractdef.xmlを対象に処理を実施しています。
+extractdef-convは処理の対象のextractdef.xmlを外部指定できないです。
 
-{1:20}(extractdef-decoder/extractdef.xml)
+## build & run
 
-
-
-``` xml (extractdef-decoder/extractdef.xml)
- <PATTERNDEF patid="SQL-102" type="SQL">
-    <NAME>CREATE\s+(?:UNIQUE\s+|BITMAP\s+)?INDEX</NAME>
-    <PATTERN>CREATE(\s+.*\s+|\s)INDEX ($2) (ON .*)</PATTERN>
-    <KEYWORDDEF pos="$1 ">
-      <NAME>BITMAP</NAME>
-      <PATTERN>BITMAP</PATTERN>
-      <MESSAGE id="SQL-102-001" level="LOW1">%keyword%句は未サポートです。</MESSAGE>
-    </KEYWORDDEF>
-    <KEYWORDDEF pos="$2 ">
-      <NAME>schema.index</NAME>
-      <PATTERN>[^.(), ]+\s*\.\s*[^.(), ]+</PATTERN>
-      <MESSAGE id="SQL-102-002" level="LOW2">インデックス名にスキーマ名は指定できません。</MESSAGE>
-    </KEYWORDDEF>
-    <KEYWORDDEF pos="$3 ">
-      <NAME>CLUSTER</NAME>
-      <PATTERN>CLUSTER</PATTERN>
-      <MESSAGE id="SQL-102-003" level="ERROR LV2">%keyword%句は未サポートです。</MESSAGE>
-    </KEYWORDDEF>
- </PATTERNDEF>
+```
+go build
+extractdef-conv.exe -print tubame > oracleToPostgres.csv
 ```
 
+## convert tubame knowledge
 
- - 上記の検索条件があるか対応可能か？
-   確認する必要がある。
+ * oracleToPostgres.csvをunicodeに変換してください。
+ 
+ * unicodeに変換したoracleToPostgres.csvをconvツール(https://github.com/tak7iji/conv)を利用して、TUBAMEナレッジのXMLに変換する。
+ 
+```
+conv -f oracleToPostgres.csv
+Convert oracleToPostgres.csv to TUBAME Knowledge XML.
+```
+
+作成されたoracleToPostgres.xmlがTUBAMEナレッジXMLです。
+
+  
+
+
+
 
