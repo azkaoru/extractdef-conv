@@ -28,6 +28,7 @@ Convert oracleToPostgres.csv to TUBAME Knowledge XML.
 
 作成されたoracleToPostgres.xmlがTUBAMEナレッジXMLです。
 
+ただし、oracleToPostgres.xmlは、TUBAMEナレッジXMLの形式に変更しただけであり、検索条件はTUBAME用に変更しないと動作しない。
   
 
 
